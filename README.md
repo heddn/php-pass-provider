@@ -4,4 +4,4 @@ See [releases](https://github.com/heddn/php-pass-provider/releases) to download 
 [normal procedures](https://www.keycloak.org/docs/latest/server_installation/index.html#_operator-extensions)
 for a custom extension.
 
-Tested with Keycloak 15, but generally speaking it should work on most (all) versions of Keycloak.
+Tested with Keycloak 15-22, but generally speaking it should work on most (all) versions of Keycloak.
