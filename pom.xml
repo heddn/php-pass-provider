@@ -48,6 +48,7 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- The code seems to be https://github.com/spharion88/phpass-java and the related jar lives at jitpack. -->
     <dependency>
       <groupId>com.github.Mollom</groupId>
       <artifactId>phpass-java</artifactId>
