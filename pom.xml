@@ -56,16 +56,11 @@
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>5.10.0</version>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.10.2</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <version>5.10.0</version>
-      <scope>test</scope>
-    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.easymock/easymock -->
     <dependency>
       <groupId>org.easymock</groupId>
@@ -96,6 +91,19 @@
               </goals>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M7</version>
+            <configuration>
+                <!-- Include inner test classes in execution -->
+                <excludes>
+                    <exclude/>
+                </excludes>
+                <!-- Surefire misses to pass on correct encoding to forked JVM, even though encoding is set correct. -->
+                <!-- https://issues.apache.org/jira/browse/SUREFIRE-951 -->
+                <argLine>-Dfile.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError</argLine>
+            </configuration>
         </plugin>
       </plugins>
   </build>

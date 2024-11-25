@@ -1,21 +1,21 @@
 package org.drupal.credential.hash;
 
-import org.easymock.EasyMockRunner;
+import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.keycloak.credential.hash.PasswordHashProvider;
 import org.keycloak.models.KeycloakSession;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.easymock.EasyMock.replay;
 
 /**
- * Unit test PHP password hashing.
+ * Unit test PHP password hashing factory.
  */
-@RunWith(EasyMockRunner.class)
+@ExtendWith(EasyMockExtension.class)
 public class PhpPassPasswordHashProviderFactoryTest
 {
     @TestSubject
@@ -27,8 +27,9 @@ public class PhpPassPasswordHashProviderFactoryTest
     @Test
     public void create()
     {
+        replay(mockSession);
         PasswordHashProvider provider = factory.create(mockSession);
-        assertThat(provider, instanceOf(PhpPassPasswordHashProvider.class));
+        assertTrue(provider instanceof PhpPassPasswordHashProvider);
         assertEquals(factory.getId(), PhpPassPasswordHashProviderFactory.ID);
     }
 }
