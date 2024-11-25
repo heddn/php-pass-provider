@@ -34,11 +34,6 @@ public class PhpPassPasswordHashProvider implements PasswordHashProvider {
     }
 
     @Override
-    public String encode(String rawPassword, int iterations) {
-        return encodedCredential(rawPassword);
-    }
-
-    @Override
     public boolean verify(String rawPassword, PasswordCredentialModel credential) {
         String encryptedPassword = credential.getPasswordSecretData().getValue();
         return passwordHasher.isMatch(rawPassword, encryptedPassword);

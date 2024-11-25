@@ -37,7 +37,8 @@ public class PhpPassPasswordHashProviderTest
     public void canEncode()
     {
         String rawPassword = "P@ssw0rd1";
-        String encryptedPassword = phpPassHashProvider.encode(rawPassword, PhpPassPasswordHashProvider.HASH_ITERATIONS);
+        PasswordCredentialModel passwordCredentialModel = phpPassHashProvider.encodedCredential(rawPassword, PhpPassPasswordHashProvider.HASH_ITERATIONS);
+        String encryptedPassword = passwordCredentialModel.getPasswordSecretData().getValue();
         byte[] salt = StandardCharsets.UTF_8.encode("abc123").array();
         PasswordCredentialData credentialData = new PasswordCredentialData(PhpPassPasswordHashProvider.HASH_ITERATIONS, PhpPassPasswordHashProviderFactory.ID);
         PasswordSecretData secretData = new PasswordSecretData(encryptedPassword, salt);
