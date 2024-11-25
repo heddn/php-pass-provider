@@ -1,0 +1,16 @@
+name: php-pass-provider
+services:
+  java:
+    type: lando
+    services:
+      image: debian:bookworm
+      command: tail -f /dev/null
+    build_as_root:
+      - apt-get update
+      - apt upgrade -y
+      - apt install -y maven
+tooling:
+  mvn:
+    service: java
+    env:
+      LANG: C.utf8
