@@ -1,24 +1,23 @@
 package org.drupal.credential.hash;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.keycloak.models.credential.PasswordCredentialModel;
 import org.keycloak.models.credential.dto.PasswordCredentialData;
 import org.keycloak.models.credential.dto.PasswordSecretData;
 
-import java.nio.charset.StandardCharsets;
-
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Unit test PHP password hashing factory.
+ * Unit test PHP password hashing.
  */
 public class PhpPassPasswordHashProviderTest
 {
     private PhpPassPasswordHashProvider phpPassHashProvider;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    public void init() {
         phpPassHashProvider = new PhpPassPasswordHashProvider(PhpPassPasswordHashProviderFactory.ID);
     }
 
@@ -38,7 +37,8 @@ public class PhpPassPasswordHashProviderTest
     public void canEncode()
     {
         String rawPassword = "P@ssw0rd1";
-        String encryptedPassword = phpPassHashProvider.encode(rawPassword, PhpPassPasswordHashProvider.HASH_ITERATIONS);
+        PasswordCredentialModel passwordCredentialModel = phpPassHashProvider.encodedCredential(rawPassword, PhpPassPasswordHashProvider.HASH_ITERATIONS);
+        String encryptedPassword = passwordCredentialModel.getPasswordSecretData().getValue();
         byte[] salt = StandardCharsets.UTF_8.encode("abc123").array();
         PasswordCredentialData credentialData = new PasswordCredentialData(PhpPassPasswordHashProvider.HASH_ITERATIONS, PhpPassPasswordHashProviderFactory.ID);
         PasswordSecretData secretData = new PasswordSecretData(encryptedPassword, salt);
